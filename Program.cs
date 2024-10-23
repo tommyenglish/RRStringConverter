@@ -51,3 +51,8 @@ processor = new TreeNodeProcessor();
 result = processor.ConvertString(itemToProcess);
 Console.WriteLine(processor.Name);
 Console.WriteLine(result);
+
+processor = new SortedTreeNodeProcessor();
+result = processor.ConvertString(itemToProcess);
+Console.WriteLine(processor.Name);
+Console.WriteLine(result);

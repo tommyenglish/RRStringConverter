@@ -23,5 +23,14 @@ namespace RRStringConverter.Extensions
 
             return sb.ToString();
         }
+
+        public static void SortTree<T>(this TreeNode<T> node)
+        {
+            node.Children = node.Children.OrderBy(c => c.Value!.ToString()).ToList();
+            foreach (var child in node.Children)
+            {
+                child.SortTree();
+            }
+        }
     }
 }

@@ -41,6 +41,7 @@ using RRStringConverter.Processors;
 string itemToProcess = "(id, name, email, type(id, name, customFields(c1, c2, c3)), externalId)";
 
 List<ICodeChallengeProcessor> codeChallengeProcessors = [
+    new SimpleProcessor(),
     new FrontToBackProcessor(), 
     new TreeNodeProcessor(),
     new SortedTreeNodeProcessor()

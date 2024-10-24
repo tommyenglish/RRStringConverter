@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using RRStringConverter.Helpers;
 
 namespace RRStringConverter.Processors;
 
@@ -12,11 +13,23 @@ namespace RRStringConverter.Processors;
 internal class SimpleProcessor : ICodeChallengeProcessor
 {
     const string SPACER = "  ";
+    private readonly ICodeChallengeValidator _codeChallengeValidator;
 
     public string Name => nameof(SimpleProcessor);
 
+    public SimpleProcessor(ICodeChallengeValidator codeChallengeValidator)
+    {
+        _codeChallengeValidator = codeChallengeValidator;
+    }
+
     public string ConvertString(string input)
     {
+        // Just return an informative string for now, but would likely be an exception in a real implementation
+        if (!_codeChallengeValidator.IsValid(input))
+        {
+            return "Invalid input";
+        }
+
         int _indentLevel = 0;
         var sb = new StringBuilder();
 

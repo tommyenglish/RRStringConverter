@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using RRStringConverter.Helpers;
 
 namespace RRStringConverter.Processors;
 
@@ -18,11 +19,23 @@ internal class FrontToBackProcessor : ICodeChallengeProcessor
     // We'll add and remove spaces to this string to adjust the indent level
     private string _indent = string.Empty;
     const string SPACER = "  ";
+    private readonly ICodeChallengeValidator _codeChallengeValidator;
 
     public string Name => nameof(FrontToBackProcessor);
 
+    public FrontToBackProcessor(ICodeChallengeValidator codeChallengeValidator)
+    {
+        _codeChallengeValidator = codeChallengeValidator;
+    }
+
     public string ConvertString(string input)
     {
+        // Just return an informative string for now, but would likely be an exception in a real implementation
+        if (!_codeChallengeValidator.IsValid(input))
+        {
+            return "Invalid input";
+        }
+
         var sb = new StringBuilder();
         string truncatedInput = input[1..^1];
         var items = truncatedInput.Split(", ");

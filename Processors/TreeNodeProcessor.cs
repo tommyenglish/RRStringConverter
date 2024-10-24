@@ -10,10 +10,23 @@ namespace RRStringConverter.Processors;
 /// </summary>
 internal class TreeNodeProcessor : ICodeChallengeProcessor
 {
+    private readonly ICodeChallengeValidator _codeChallengeValidator;
+
     public string Name => nameof(TreeNodeProcessor);
+
+    public TreeNodeProcessor(ICodeChallengeValidator codeChallengeValidator)
+    {
+        _codeChallengeValidator = codeChallengeValidator;
+    }
 
     public string ConvertString(string input)
     {
+        // Just return an informative string for now, but would likely be an exception in a real implementation
+        if (!_codeChallengeValidator.IsValid(input))
+        {
+            return "Invalid input";
+        }
+
         bool suppressRoot = input.StartsWith('(');
         var treeNode = TreeNodeHelper.BuildTree(input);
         var treeOutput = treeNode.GetTreeString(suppressRoot);

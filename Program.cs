@@ -36,15 +36,17 @@ And also to this output:
   - name
 ```
 */
+using RRStringConverter.Helpers;
 using RRStringConverter.Processors;
 
 string itemToProcess = "(id, name, email, type(id, name, customFields(c1, c2, c3)), externalId)";
 
+var validator = new RecursiveCodeChallengeValidator();
 List<ICodeChallengeProcessor> codeChallengeProcessors = [
-    new SimpleProcessor(),
-    new FrontToBackProcessor(), 
-    new TreeNodeProcessor(),
-    new SortedTreeNodeProcessor()
+    new SimpleProcessor(validator),
+    new FrontToBackProcessor(validator), 
+    new TreeNodeProcessor(validator),
+    new SortedTreeNodeProcessor(validator)
 ];
 
 foreach (var processor in codeChallengeProcessors)
